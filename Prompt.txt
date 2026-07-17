@@ -1,0 +1,27 @@
+Enhance the UI/UX of the ZenduWaste landing page (running at localhost:5174), especially the CTA section (#cta). Currently it's functional but flat — I want it to feel premium and distinctive, not like a generic template.
+Specifics:
+Motion & polish
+
+Add purposeful entrance animations on scroll for each section (staggered reveals, not a uniform fade-in on everything) — use ease-out-quint easing, no bounce.
+Give buttons and interactive elements real hover/press states: subtle scale, shadow lift, or color shift on the primary CTA buttons.
+Add a subtle parallax or depth effect to the Command Center exception-feed mockup in the hero so it feels alive, not static.
+Respect prefers-reduced-motion with a crossfade fallback for every animation added.
+
+Visual hierarchy
+
+Increase contrast and presence of the primary CTA ("See it on your routes") — right now it competes visually with the secondary "How it works" button. Make the primary unmistakably primary.
+Add depth to the dark hero section — subtle gradient or vignette, not flat solid green — while keeping the existing DARK_GREEN/ACCENT palette intact.
+Improve the Command Center exception card mockup: add subtle live-feeling touches (a pulsing "live" indicator, staggered timestamp reveal) so it reads as real software, not a screenshot.
+
+CTA section specifically
+
+Make the closing CTA band feel like a confident final beat, not a repeat of the hero. Consider a bolder background treatment (could invert to the accent orange, sparingly) and tighten the copy to one strong line + one button.
+Ensure the CTA section has enough breathing room (vertical padding) — check it doesn't feel cramped against the footer.
+
+Constraints
+
+Keep the existing DARK_GREEN (#1A3C34) / MID_GREEN (#2E7D52) / ACCENT (#E8772E) palette — don't introduce new colors.
+No side-stripe borders, no gradient text, no glassmorphism, no generic icon-in-circle card grids.
+Keep it fast — avoid heavy animation libraries if CSS transitions/@keyframes can do the job; use Framer Motion or GSAP only if the interaction genuinely needs spring physics or scroll-linked choreography.
+
+Ship real, production-grade code — not placeholder comments. Test at mobile, tablet, and desktop breakpoints, and confirm no text overflow or layout breakage at any size.
