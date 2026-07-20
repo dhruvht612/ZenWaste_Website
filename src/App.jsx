@@ -7,6 +7,7 @@ import Comparison from './components/Comparison.jsx'
 import Metrics from './components/Metrics.jsx'
 import Cta from './components/Cta.jsx'
 import Footer from './components/Footer.jsx'
+import NightMap from './components/NightMap.jsx'
 
 export default function App() {
   return (
@@ -19,9 +20,13 @@ export default function App() {
         <Capabilities />
         <Comparison />
         <Metrics />
-        <Cta />
       </main>
-      <Footer />
+      {/* the page closes on the same canvas it opened on */}
+      <div className="close-band">
+        <NightMap />
+        <Cta />
+        <Footer />
+      </div>
     </>
   )
 }

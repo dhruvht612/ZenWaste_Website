@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Brand } from './Logo.jsx'
 
 const LINKS = [
   { href: '#how', label: 'How it works' },
@@ -20,10 +21,7 @@ export default function Nav() {
   return (
     <nav className={`nav${scrolled ? ' is-scrolled' : ''}`}>
       <div className="container nav-inner">
-        <a className="brand" href="#top" aria-label="ZenduWaste home">
-          <span className="brand-mark" aria-hidden="true" />
-          Zendu<span className="brand-w">Waste</span>
-        </a>
+        <Brand />
         <div className="nav-links">
           {LINKS.map((l) => (
             <a key={l.href} href={l.href}>{l.label}</a>

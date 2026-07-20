@@ -3,6 +3,7 @@ dist
 *.local
 .DS_Store
 ZenduOne_Design_System
+ZenduONE Design System/
 
 # Local screenshot QA output
 .shots/
