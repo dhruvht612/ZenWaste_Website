@@ -19,7 +19,7 @@ export default function Nav() {
   }, [])
 
   return (
-    <nav className={`nav${scrolled ? ' is-scrolled' : ''}`}>
+    <nav className={`nav${scrolled ? ' is-scrolled' : ''}`} aria-label="Primary">
       <div className="container nav-inner">
         <Brand />
         <div className="nav-links">

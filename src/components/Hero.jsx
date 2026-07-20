@@ -134,7 +134,9 @@ export default function Hero() {
                 </div>
               </div>
 
-              <div className="panel-body cc-feed">
+              {/* simulated demo feed — the section label describes it; the
+                  2.8s churn stays out of the accessibility tree */}
+              <div className="panel-body cc-feed" aria-hidden="true">
                 {rows.map((r) => (
                   <article
                     key={r.key}

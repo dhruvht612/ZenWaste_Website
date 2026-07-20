@@ -1,7 +1,10 @@
 {
   "detector": {
     "ignoreRules": [],
-    "ignoreFiles": [],
+    "ignoreFiles": [
+      "ZenduONE Design System/**",
+      "dist/**"
+    ],
     "ignoreValues": [
       {
         "rule": "overused-font",
