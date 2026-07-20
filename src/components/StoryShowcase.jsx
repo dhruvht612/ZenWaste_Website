@@ -99,8 +99,8 @@ export default function StoryShowcase() {
               <svg className="stage-map" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
                 <defs>
                   <linearGradient id="routeGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#43B074" />
-                    <stop offset="100%" stopColor="#E8772E" />
+                    <stop offset="0%" stopColor="#3A8BCC" />
+                    <stop offset="100%" stopColor="#0F5795" />
                   </linearGradient>
                 </defs>
                 <path ref={pathRef} className="route-bg" d={ROUTE} />
@@ -116,7 +116,7 @@ export default function StoryShowcase() {
 
               {/* AI footage analysis */}
               <div className={`stage-overlay ov-scan${stage >= 2 ? ' show' : ''}`}>
-                <div className="ov-head"><span className="badge-dot" style={{ background: '#43B074' }} />ZenCam · analyzing</div>
+                <div className="ov-head"><span className="badge-dot" style={{ background: '#12B76A' }} />ZenCam · analyzing</div>
                 <div className="ov-scan-frame">
                   <span className="scan-line" />
                 </div>
