@@ -117,10 +117,12 @@ export default function StoryShowcase() {
               {/* AI footage analysis */}
               <div className={`stage-overlay ov-scan${stage >= 2 ? ' show' : ''}`}>
                 <div className="ov-head"><span className="badge-dot" style={{ background: '#12B76A' }} />ZenCam · analyzing</div>
-                <div className="ov-scan-frame">
-                  <span className="scan-line" />
+                <div className="evidence-frame ov-scan-frame">
+                  <span className="corner-tr" /><span className="corner-bl" />
+                  <span className="capture-line" />
+                  <span className="frame-meta"><span className="frame-rec" />08:41:52</span>
                 </div>
-                <div className="ov-conf">Cart never serviced · <b>confidence 96%</b></div>
+                <div className="ov-conf">Cart never serviced <span className="conf"><span className="conf-bar"><i style={{ transform: 'scaleX(0.96)' }} /></span><b>96%</b></span></div>
               </div>
 
               {/* Dispatcher alert */}

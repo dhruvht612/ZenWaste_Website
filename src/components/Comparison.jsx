@@ -1,7 +1,9 @@
 import { useReveal } from '../hooks/useReveal.js'
 
-const COLS = ['ZenduWaste', 'Samsara', 'Geotab', 'Routeware']
+const TELEMATICS = ['Where did the truck drive?', 'How fast was it going?', 'What was the route history?', 'Where are the GPS breadcrumbs?']
+const ZENDU = ['Was the stop actually serviced?', 'Was the cart at the curb?', 'Was there contamination?', 'Is there footage to prove it?', 'Does dispatch need to act now?']
 
+const COLS = ['ZenduWaste', 'Samsara', 'Geotab', 'Routeware']
 // y = yes, n = no, p = partial
 const ROWS = [
   ['AI pickup verification per stop', ['y', 'n', 'n', 'p']],
@@ -24,41 +26,70 @@ export default function Comparison() {
     <section className="section cmp" id="compare" ref={ref}>
       <div className="container">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">Why not the incumbents</span>
-          <h2 className="section-title">Telematics tells you where the truck went. We tell you what it did.</h2>
+          <span className="eyebrow">The category difference</span>
+          <h2 className="section-title cmp-headline">
+            Telematics tells you where the truck went.{' '}
+            <span className="grad">We tell you what it did.</span>
+          </h2>
           <p className="section-lead">
-            Samsara, Geotab, and Routeware are built for generic fleets. ZenduWaste is
-            built for the one question waste operators actually get called about:
-            was the stop serviced?
+            Generic fleet platforms track the vehicle. ZenduWaste answers the one question
+            a waste operator actually gets called about — was the stop serviced?
           </p>
         </div>
 
-        <div className="cmp-wrap" data-reveal>
-          <div className="cmp-grid">
-            <div className="cmp-cell cmp-head cmp-feature">Capability</div>
-            {COLS.map((c, i) => (
-              <div key={c} className={`cmp-cell cmp-head${i === 0 ? ' us' : ''}`}>{c}</div>
-            ))}
-
-            {ROWS.map(([feature, marks]) => (
-              <Row key={feature} feature={feature} marks={marks} />
-            ))}
+        <div className="vs" data-reveal>
+          <div className="vs-col vs-them">
+            <div className="vs-cap">
+              <span className="vs-kind">Generic telematics</span>
+              <span className="vs-sub">Samsara · Geotab · Routeware</span>
+            </div>
+            <ul className="vs-list">
+              {TELEMATICS.map((q) => (
+                <li key={q}><span className="vs-mark vs-mark-them">•</span>{q}</li>
+              ))}
+            </ul>
           </div>
+
+          <div className="vs-divider" aria-hidden="true"><span>vs</span></div>
+
+          <div className="vs-col vs-us">
+            <div className="vs-cap">
+              <span className="vs-kind">ZenduWaste answers</span>
+              <span className="vs-sub">Built for the curb, not the highway</span>
+            </div>
+            <ul className="vs-list">
+              {ZENDU.map((q) => (
+                <li key={q}><span className="vs-mark vs-mark-us">✓</span>{q}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="cmp-wrap" data-reveal>
+          <table className="cmp-table">
+            <thead>
+              <tr>
+                <th scope="col" className="cmp-feature">Capability</th>
+                {COLS.map((c, i) => (
+                  <th scope="col" key={c} className={i === 0 ? 'us' : ''}>{c}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ROWS.map(([feature, marks]) => (
+                <tr key={feature}>
+                  <th scope="row" className="cmp-feature">{feature}</th>
+                  {marks.map((m, i) => (
+                    <td key={i} className={i === 0 ? 'cmp-col-us' : ''}>
+                      <Mark v={m} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
-  )
-}
-
-function Row({ feature, marks }) {
-  return (
-    <>
-      <div className="cmp-cell cmp-feature">{feature}</div>
-      {marks.map((m, i) => (
-        <div key={i} className={`cmp-cell${i === 0 ? ' cmp-col-us' : ''}`}>
-          <Mark v={m} />
-        </div>
-      ))}
-    </>
   )
 }

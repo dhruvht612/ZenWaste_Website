@@ -1,16 +1,52 @@
+import { useEffect, useState } from 'react'
 import { useParallax } from '../hooks/useParallax.js'
 import { useSpotlight } from '../hooks/useSpotlight.js'
+import { useInViewTicker } from '../hooks/useInViewTicker.js'
 
-const FEED = [
-  { tag: 'Missed', cls: 'tag-miss', title: 'Route 14 · Stop 87', sub: '1420 Alameda St — no service event in window', time: '8:42', alert: true },
-  { tag: 'Verified', cls: 'tag-ok', title: 'Route 14 · Stop 86', sub: 'ZenCam confirmed pickup · 98%', time: '8:39' },
-  { tag: 'Contamination', cls: 'tag-flag', title: 'Route 12 · Stop 41', sub: 'Cardboard in organics · frame attached', time: '8:31' },
-  { tag: 'Verified', cls: 'tag-ok', title: 'Route 12 · Stop 40', sub: 'ZenCam confirmed pickup · 96%', time: '8:28' },
+/* The pool the live feed draws from. New events arrive at the top on each
+ * tick, so the Command Center reads as an operation actually running. */
+const POOL = [
+  { kind: 'miss', tag: 'Missed', route: 'Route 14 · Stop 87', sub: '1420 Alameda St — no service event in window', evidence: true, action: 'Dispatch' },
+  { kind: 'ok', tag: 'Verified', route: 'Route 14 · Stop 86', sub: 'ZenCam confirmed pickup', conf: 98 },
+  { kind: 'flag', tag: 'Contamination', route: 'Route 12 · Stop 41', sub: 'Cardboard in organics · frame attached', conf: 91 },
+  { kind: 'ok', tag: 'Verified', route: 'Route 12 · Stop 40', sub: 'ZenCam confirmed pickup', conf: 96 },
+  { kind: 'ok', tag: 'Verified', route: 'Route 9 · Stop 112', sub: 'ZenCam confirmed pickup', conf: 99 },
+  { kind: 'flag', tag: 'Contamination', route: 'Route 7 · Stop 22', sub: 'Plastic bag in green cart', conf: 88 },
+  { kind: 'ok', tag: 'Verified', route: 'Route 9 · Stop 111', sub: 'ZenCam confirmed pickup', conf: 97 },
 ]
+
+const TAG_CLASS = { miss: 'tag-miss', flag: 'tag-flag', ok: 'tag-ok' }
+
+function pad(n) {
+  return String(n).padStart(2, '0')
+}
 
 export default function Hero() {
   const spotlightRef = useSpotlight()
   const deviceRef = useParallax()
+  const [feedRef, tick] = useInViewTicker(2800)
+
+  // Live clock in the panel header (rests at a fixed time under reduced motion).
+  const [clock, setClock] = useState('08:42:07')
+  useEffect(() => {
+    const reduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduced) return
+    let s = 8 * 3600 + 42 * 60 + 7
+    const id = setInterval(() => {
+      s += 1
+      setClock(`${pad(Math.floor(s / 3600))}:${pad(Math.floor((s % 3600) / 60))}:${pad(s % 60)}`)
+    }, 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  // Build the visible feed: newest arrival on top, five rows deep.
+  const rows = Array.from({ length: 5 }, (_, i) => {
+    const item = POOL[(tick + i) % POOL.length]
+    const min = 42 - i * 3
+    return { ...item, key: `${tick}-${i}`, time: `8:${pad(((min % 60) + 60) % 60)}`, fresh: i === 0 }
+  })
+  const open = rows.filter((r) => r.kind !== 'ok').length
 
   return (
     <header className="hero" id="top" ref={spotlightRef}>
@@ -29,20 +65,23 @@ export default function Hero() {
             Built on ZenduONE + ZenCam · No new hardware
           </div>
           <h1 className="rise rise-2">
-            Waste fleet intelligence,{' '}
-            <span className="grad">already running on your trucks.</span>
+            The intelligence layer for the{' '}
+            <span className="grad">cameras already on your trucks.</span>
           </h1>
           <p className="hero-sub rise rise-3">
-            ZenduWaste turns the cameras already mounted on your fleet into an
-            AI layer that verifies every pickup, catches contamination at the curb,
-            and surfaces missed stops before the customer ever calls.
+            ZenduWaste turns your existing fleet cameras into an AI layer that verifies
+            every pickup, catches contamination at the curb, and surfaces missed stops —
+            resolved before the customer ever calls.
           </p>
           <div className="hero-actions rise rise-4">
             <a className="btn btn-primary btn-lg" href="#cta">
               See it on your routes
               <span className="btn-arrow" aria-hidden="true">→</span>
             </a>
-            <a className="btn btn-ghost btn-lg" href="#how">Watch how it works</a>
+            <a className="btn btn-ghost btn-lg" href="#how">
+              <span className="play-glyph" aria-hidden="true">▶</span>
+              Watch how it works
+            </a>
           </div>
           <div className="hero-metrics rise rise-5">
             <div className="metric-chip">
@@ -62,33 +101,63 @@ export default function Hero() {
 
         <div className="hero-visual rise rise-4">
           <div className="device" ref={deviceRef}>
-            <div
-              className="panel"
-              role="img"
-              aria-label="ZenduWaste Command Center exception feed: a flagged missed stop on Route 14, a contamination flag on Route 12, and two camera-verified pickups"
+            <section
+              className="panel cc"
+              ref={feedRef}
+              aria-label="ZenduWaste Command Center — a live feed of route exceptions and camera-verified pickups"
             >
               <div className="panel-bar">
                 <span className="d" /><span className="d" /><span className="d" />
-                <span className="panel-title">Command Center — Live exceptions</span>
+                <span className="panel-title">Command Center</span>
+                <span className="cc-clock mono" aria-hidden="true">{clock}</span>
                 <span className="panel-live"><span className="dot" />Live</span>
               </div>
-              <div className="panel-body">
-                {FEED.map((r, i) => (
-                  <div
-                    key={r.title}
-                    className={`row feed-anim${r.alert ? ' alert' : ''}`}
-                    style={{ animationDelay: `${0.6 + i * 0.13}s` }}
+
+              <div className="cc-rail" aria-hidden="true">
+                <div className="cc-stat">
+                  <b className="mono">6</b><span>active routes</span>
+                </div>
+                <div className="cc-stat">
+                  <b className="mono" style={{ color: 'var(--error-600)' }}>{open}</b><span>open exceptions</span>
+                </div>
+                <div className="cc-stat">
+                  <b className="mono" style={{ color: 'var(--success-600)' }}>412</b><span>verified today</span>
+                </div>
+              </div>
+
+              <div className="panel-body cc-feed">
+                {rows.map((r) => (
+                  <article
+                    key={r.key}
+                    className={`row cc-row${r.kind === 'miss' ? ' alert' : ''}${r.fresh ? ' fresh' : ''}`}
                   >
-                    <span className={`tag ${r.cls}`}>{r.tag}</span>
+                    <span className={`tag ${TAG_CLASS[r.kind]}`}>{r.tag}</span>
                     <span className="rt">
-                      <strong>{r.title}</strong>
+                      <strong>{r.route}</strong>
                       <span>{r.sub}</span>
+                      {r.conf != null && (
+                        <span className="conf">
+                          <span className="conf-bar"><i style={{ transform: `scaleX(${r.conf / 100})` }} /></span>
+                          <b>{r.conf}%</b> confidence
+                        </span>
+                      )}
                     </span>
-                    <span className="rtime">{r.time} AM</span>
-                  </div>
+                    {r.evidence ? (
+                      <span className="cc-evidence" aria-hidden="true">
+                        <span className="evidence-frame">
+                          <span className="corner-tr" /><span className="corner-bl" />
+                          <span className="capture-line" />
+                          <span className="frame-meta"><span className="frame-rec" />ZenCam</span>
+                        </span>
+                        <span className="btn btn-primary btn-sm cc-act">{r.action} →</span>
+                      </span>
+                    ) : (
+                      <span className="rtime mono">{r.time}</span>
+                    )}
+                  </article>
                 ))}
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>
