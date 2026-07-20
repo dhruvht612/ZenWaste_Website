@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "reason": "Inter is mandated by the ZenduONE design system (brand identity preservation)",
+        "createdAt": "2026-07-20T17:13:30.732Z"
+      }
+    ]
+  }
+}

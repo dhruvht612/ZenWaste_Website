@@ -3,6 +3,11 @@ dist
 *.local
 .DS_Store
 ZenduOne_Design_System
+ZenduONE Design System/
 
 # Local screenshot QA output
 .shots/
+
+# Impeccable: machine-local hook state stays out; shared config is committed
+.impeccable/hook.cache.json
+.impeccable/config.local.json

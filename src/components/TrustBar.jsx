@@ -1,6 +1,7 @@
 import { useReveal } from '../hooks/useReveal.js'
+import { Mark } from './Logo.jsx'
 
-const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
+const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }
 const GLYPH = {
   cam: (
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
@@ -12,12 +13,6 @@ const GLYPH = {
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
       <path d="M5 6h14v9H14l-2 3-2-3H5z" {...S} />
       <path d="M9 10.5h6M9 12.8h4" {...S} />
-    </svg>
-  ),
-  core: (
-    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
-      <rect x="4.5" y="4.5" width="15" height="15" rx="4" {...S} stroke="#fff" />
-      <path d="M9.5 14.5v-5l2.5 3 2.5-3v5" {...S} stroke="#fff" />
     </svg>
   ),
   cc: (
@@ -45,7 +40,7 @@ const GLYPH = {
 const FLOW = [
   { icon: 'cam', title: 'ZenCam', sub: 'Captures what happens at the curb' },
   { icon: 'ai', title: 'AI vision', sub: 'Understands the visual evidence' },
-  { icon: 'core', title: 'ZenduWaste', sub: 'Creates operational intelligence', core: true },
+  { title: 'ZenduWaste', sub: 'Creates operational intelligence', core: true },
   { icon: 'cc', title: 'Command Center', sub: 'Surfaces the exception' },
   { icon: 'dispatch', title: 'Dispatch', sub: 'Takes action on it' },
   { icon: 'evidence', title: 'Service evidence', sub: 'Supports resolution' },
@@ -57,11 +52,10 @@ export default function TrustBar() {
     <section className="section eco" id="ecosystem" ref={ref}>
       <div className="container">
         <div className="section-head eco-head" data-reveal>
-          <span className="eyebrow" style={{ justifyContent: 'center' }}>The platform</span>
-          <h2 className="section-title" style={{ margin: '0 auto' }}>
+          <h2 className="section-title">
             From visual evidence to operational action.
           </h2>
-          <p className="section-lead" style={{ margin: 'var(--s-4) auto 0' }}>
+          <p className="section-lead">
             ZenduWaste is not another disconnected dashboard. It’s the operational
             intelligence layer powered by ZenCam — turning what the camera sees into
             action your team can take.
@@ -73,7 +67,9 @@ export default function TrustBar() {
           {FLOW.map((n, i) => (
             <div className="flow-item" key={n.title}>
               <div className={`flow-node${n.core ? ' is-core' : ''}`}>
-                <span className="flow-ic">{GLYPH[n.icon]}</span>
+                <span className="flow-ic">
+                  {n.core ? <Mark size={26} /> : GLYPH[n.icon]}
+                </span>
                 <strong>{n.title}</strong>
                 <span className="flow-sub">{n.sub}</span>
               </div>

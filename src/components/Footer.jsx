@@ -1,3 +1,5 @@
+import { Brand } from './Logo.jsx'
+
 const COLS = [
   {
     h: 'Platform',
@@ -34,11 +36,8 @@ export default function Footer() {
       <div className="container">
         <div className="footer-top">
           <div style={{ maxWidth: '320px' }}>
-            <a className="brand" href="#top">
-              <span className="brand-mark" aria-hidden="true" />
-              Zendu<span className="brand-w">Waste</span>
-            </a>
-            <p style={{ color: 'var(--muted)', marginTop: 'var(--s-4)', fontSize: '0.95rem' }}>
+            <Brand />
+            <p className="footer-tag">
               AI waste-fleet intelligence, running on the cameras already on your trucks.
             </p>
           </div>

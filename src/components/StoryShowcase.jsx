@@ -72,13 +72,10 @@ export default function StoryShowcase() {
     <section className="story" id="how">
       <div className="story-track" ref={trackRef}>
         <div className="story-sticky">
-          <div className="aurora-field" aria-hidden="true">
-            <span className="aurora aurora-c" style={{ opacity: 0.4 }} />
-          </div>
-
           <div className="container story-inner">
             <div className="story-copy">
-              <span className="eyebrow">The lifecycle of one missed stop</span>
+              {/* the one place a case ID is earned: this IS the case being told */}
+              <p className="story-kicker mono">Route 14 · Stop 87 · <b>missed</b></p>
               <h2 className="section-title">Watch the software work.</h2>
               <div className="story-steps" role="list">
                 {STEPS.map((s, i) => (
@@ -98,27 +95,27 @@ export default function StoryShowcase() {
 
             <div className="stage" aria-hidden="true">
               <svg className="stage-map" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid meet">
-                <defs>
-                  <linearGradient id="routeGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#3A8BCC" />
-                    <stop offset="100%" stopColor="#0F5795" />
-                  </linearGradient>
-                </defs>
                 <path ref={pathRef} className="route-bg" d={ROUTE} />
                 <path ref={fgRef} className="route-fg" d={ROUTE} />
                 {stops.map((s, i) => (
                   <circle key={i} className={stopClass(s)} cx={s.x} cy={s.y} r={s.missed ? 7 : 5} />
                 ))}
+                {/* collection truck, drawn from the side */}
                 <g ref={truckRef} className="truck">
-                  <rect className="truck-body" x="-7" y="-5" width="14" height="10" rx="2.5" />
-                  <rect x="-2" y="-4" width="6" height="8" rx="1.5" fill="rgba(255,255,255,0.9)" />
+                  <rect x="-9" y="-5.5" width="11" height="8.5" rx="1.5" fill="#136AB6" />
+                  <path d="M2 -3.5 h4.2 l2.6 3 v3.5 h-6.8 z" fill="#0F5795" />
+                  <rect x="-7.5" y="-3.8" width="8" height="3" rx="1" fill="rgba(255,255,255,0.55)" />
+                  <circle cx="-5" cy="3.6" r="2" fill="#101828" />
+                  <circle cx="5" cy="3.6" r="2" fill="#101828" />
+                  <circle cx="-5" cy="3.6" r="0.8" fill="#98A2B3" />
+                  <circle cx="5" cy="3.6" r="0.8" fill="#98A2B3" />
                 </g>
               </svg>
 
               {/* AI footage analysis */}
               <div className={`stage-overlay ov-scan${stage >= 2 ? ' show' : ''}`}>
-                <div className="ov-head"><span className="badge-dot" style={{ background: '#12B76A' }} />ZenCam · analyzing</div>
-                <EvidenceFrame scene="detect" analyzing meta="08:41:52" label="cart · 0.96" className="ov-scan-frame" />
+                <div className="ov-head"><span className="badge-dot" style={{ background: 'var(--success-500)' }} />ZenCam · analyzing</div>
+                <EvidenceFrame scene="detect" analyzing meta="04:41:52" label="cart · 0.96" className="ov-scan-frame" />
                 <div className="ov-conf">Cart never serviced <span className="conf"><span className="conf-bar"><i style={{ transform: 'scaleX(0.96)' }} /></span><b>96%</b></span></div>
               </div>
 
@@ -134,14 +131,23 @@ export default function StoryShowcase() {
               {/* Customer notification */}
               <div className={`stage-overlay ov-notify${stage >= 4 ? ' show' : ''}`}>
                 <div className="toast">
-                  <span className="ic">✉</span>
+                  <span className="ic" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="3.5" y="6" width="17" height="13" rx="2" />
+                      <path d="m4.5 7.5 7.5 6 7.5-6" />
+                    </svg>
+                  </span>
                   <span className="tt"><strong>Customer updated</strong><span>“We’ll return today”</span></span>
                 </div>
               </div>
 
               {/* Resolved */}
               <div className={`stage-overlay ov-resolved${stage >= 5 ? ' show' : ''}`}>
-                <div className="check">✓</div>
+                <div className="check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m5 12.5 4.5 4.5L19 7.5" />
+                  </svg>
+                </div>
                 <strong>Resolved this shift</strong>
                 <p>Re-serviced &amp; verified · record closed</p>
               </div>

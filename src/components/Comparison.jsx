@@ -26,10 +26,8 @@ export default function Comparison() {
     <section className="section cmp" id="compare" ref={ref}>
       <div className="container">
         <div className="section-head" data-reveal>
-          <span className="eyebrow">The category difference</span>
-          <h2 className="section-title cmp-headline">
-            Telematics tells you where the truck went.{' '}
-            <span className="grad">We tell you what it did.</span>
+          <h2 className="section-title">
+            Telematics tells you where the truck went. <em>We tell you what it did.</em>
           </h2>
           <p className="section-lead">
             Generic fleet platforms track the vehicle. ZenduWaste answers the one question
