@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useInViewTicker } from '../hooks/useInViewTicker.js'
 import { Mark } from './Logo.jsx'
 import NightMap from './NightMap.jsx'
+import EvidenceFrame from './EvidenceFrame.jsx'
 
 /* The pool the live feed draws from. New events arrive at the top on each
  * tick, so the Command Center reads as an operation actually running. */
@@ -63,15 +64,15 @@ export default function Hero() {
         <div className="hero-copy">
           <div className="hero-badge rise rise-1">
             <span className="dot" aria-hidden="true" />
-            Built on ZenduONE + ZenCam · no new hardware
+            Powered by ZenCam · Built on the ZenduONE platform
           </div>
           <h1 className="rise rise-2">
-            The intelligence layer for the <em>cameras already on your trucks.</em>
+            The camera sees the stop. <em>ZenduWaste understands what happened.</em>
           </h1>
           <p className="hero-sub rise rise-3">
-            ZenduWaste turns your existing fleet cameras into an AI layer that verifies
-            every pickup, catches contamination at the curb, and surfaces missed stops —
-            resolved before the customer ever calls.
+            AI-powered waste fleet intelligence, powered by ZenCam. ZenduWaste pairs
+            ZenCam’s AI camera technology with software built for waste operations — to
+            verify service events, catch contamination, and surface route exceptions.
           </p>
           <div className="hero-actions rise rise-4">
             <a className="btn btn-primary btn-lg" href="#cta">
@@ -84,9 +85,9 @@ export default function Hero() {
             </a>
           </div>
           <div className="hero-strip rise rise-5">
-            <div><b>98%</b><span>pickups auto-verified</span></div>
-            <div><b>&lt;3 min</b><span>to surface an exception</span></div>
-            <div><b>0</b><span>new devices installed</span></div>
+            <div><b>98%</b><span>pickup verification in pilot</span></div>
+            <div><b>&lt;3 min</b><span>exception → dispatcher alert</span></div>
+            <div><b>0</b><span>added devices required</span></div>
           </div>
         </div>
 
@@ -152,11 +153,7 @@ export default function Hero() {
                     </span>
                     {r.evidence ? (
                       <span className="cc-evidence" aria-hidden="true">
-                        <span className="evidence-frame">
-                          <span className="corner-tr" /><span className="corner-bl" />
-                          <span className="capture-line" />
-                          <span className="frame-meta"><span className="frame-rec" />ZenCam</span>
-                        </span>
+                        <EvidenceFrame scene="mini" analyzing className="cc-ev" />
                         <span className="btn btn-primary btn-sm cc-act">{r.action} →</span>
                       </span>
                     ) : (

@@ -8,10 +8,10 @@ const COLS = ['ZenduWaste', 'Samsara', 'Geotab', 'Routeware']
 const ROWS = [
   ['AI pickup verification per stop', ['y', 'n', 'n', 'p']],
   ['Contamination detection + scoring', ['y', 'n', 'n', 'n']],
-  ['Works on existing truck cameras', ['y', 'p', 'n', 'n']],
+  ['Curbside AI camera vision (ZenCam)', ['y', 'n', 'n', 'n']],
   ['Waste-specific exception dispatch', ['y', 'n', 'n', 'p']],
-  ['Proof-of-service to the resident', ['y', 'n', 'n', 'p']],
-  ['No new hardware / zero capex', ['y', 'n', 'n', 'p']],
+  ['Proof-of-service backed by footage', ['y', 'n', 'n', 'p']],
+  ['No additional devices to deploy', ['y', 'n', 'n', 'p']],
 ]
 
 function Mark({ v }) {

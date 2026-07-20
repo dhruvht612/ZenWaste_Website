@@ -315,6 +315,27 @@ button { font-family: inherit; }
   box-shadow: 0 0 8px var(--error-500);
   animation: ping-red 2s var(--ease-io) infinite;
 }
+
+/* The curbside schematic inside the frame (EvidenceFrame.jsx):
+   perspective ground, cart, and the AI detection box locking on. */
+.ev-scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.ev-ground line { stroke: rgba(255,255,255,0.14); stroke-width: 1; }
+.ev-curb { stroke: rgba(255,255,255,0.45); stroke-width: 1.5; }
+.ev-truck { fill: rgba(255,255,255,0.08); }
+.ev-cart-body { fill: #6E8BA6; stroke: rgba(255,255,255,0.35); stroke-width: 1; }
+.ev-cart-lid { fill: #89A3BB; }
+.ev-wheel { fill: #26333F; }
+.ev-box rect { fill: rgba(18,183,106,0.08); stroke: var(--success-500); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.ev-box path { fill: none; stroke: var(--success-500); stroke-width: 2; }
+.ev-box { animation: ev-lock 3s var(--ease-io) infinite; }
+@keyframes ev-lock { 0%,100% { opacity: 0.85; } 50% { opacity: 1; } }
+.ev-tag {
+  position: absolute; top: 30%; left: 40%; z-index: 3;
+  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600;
+  color: #fff; background: var(--success-600);
+  padding: 2px 6px; border-radius: 4px; white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
 @keyframes ping-red {
   0% { box-shadow: 0 0 0 0 rgba(240, 68, 56, 0.5); }
   70% { box-shadow: 0 0 0 7px rgba(240, 68, 56, 0); }
@@ -619,49 +640,49 @@ button { font-family: inherit; }
 .eco-head .section-title { margin: 0 auto; }
 .eco-head .section-lead { margin-left: auto; margin-right: auto; }
 
-.eco-diagram {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(230px, 290px) 72px auto 72px minmax(230px, 290px);
-  align-items: center;
-  justify-content: center;
-  max-width: 1060px;
-  margin: 0 auto;
+/* Product flow — camera → AI → intelligence → exception → action → evidence */
+.flow {
+  display: flex; align-items: stretch; justify-content: center;
+  max-width: 1120px; margin: 0 auto;
 }
-.eco-col { display: grid; gap: var(--s-3); }
-.eco-out { text-align: right; }
-
-.eco-node {
-  display: flex; align-items: center; gap: var(--s-3);
-  padding: 12px 14px;
+.flow-item { display: flex; align-items: center; flex: 1 1 0; min-width: 0; }
+.flow-item:last-child { flex: 0 0 auto; }
+.flow-node {
+  flex: 1 1 0; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
+  padding: var(--s-5) var(--s-3);
   background: #fff; border: 1px solid var(--line); border-radius: var(--r-md);
   box-shadow: var(--shadow-xs);
-  transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+  transition: border-color 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-quint);
 }
-.eco-node:hover { border-color: var(--primary-200); box-shadow: var(--shadow-md); }
-.eco-node-out { flex-direction: row-reverse; text-align: right; }
-.eco-node-text { display: grid; }
-.eco-node-text strong { font-size: 0.95rem; color: var(--ink); font-weight: 600; }
-.eco-node-text span { font-size: 0.78rem; color: var(--muted); }
-.eco-node svg { color: var(--primary-600); flex: none; }
-.eco-node-out svg { color: var(--success-600); }
+.flow-node:hover { border-color: var(--primary-200); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.flow-ic {
+  width: 42px; height: 42px; border-radius: 11px; display: grid; place-items: center;
+  background: var(--primary-50); border: 1px solid var(--primary-100); color: var(--primary-600);
+  margin-bottom: 2px;
+}
+.flow-node strong { font-size: 0.95rem; color: var(--ink); font-weight: 600; letter-spacing: -0.01em; }
+.flow-sub { font-size: 0.76rem; color: var(--muted); line-height: 1.35; max-width: 15ch; }
 
-/* Core — the ZenduWaste layer, rendered as a canvas tile */
-.eco-core {
-  display: grid; place-items: center; text-align: center; gap: 2px;
-  width: 190px; padding: var(--s-6) var(--s-5);
-  border-radius: var(--r-lg);
+/* Emphasized ZenduWaste node — the pivot, rendered as a canvas tile */
+.flow-node.is-core {
   background: var(--canvas);
-  color: #fff;
-  box-shadow: 0 20px 50px -12px rgba(1,6,88,0.55);
+  border-color: var(--canvas-b);
+  box-shadow: 0 16px 40px -12px rgba(1,6,88,0.55);
+  transform: translateY(-6px);
 }
-.eco-core svg { margin-bottom: 8px; }
-.eco-core strong { font-size: 1.1rem; color: #fff; letter-spacing: -0.02em; }
-.eco-core span { font-size: 0.76rem; color: var(--oncanvas-body); }
+.flow-node.is-core:hover { transform: translateY(-9px); box-shadow: 0 22px 48px -12px rgba(1,6,88,0.6); }
+.flow-node.is-core .flow-ic { background: transparent; border-color: var(--oncanvas-line-2); }
+.flow-node.is-core strong { color: #fff; }
+.flow-node.is-core .flow-sub { color: var(--oncanvas-body); }
 
-.eco-link { position: relative; height: 2px; width: 100%; align-self: center; background: var(--line-2); border-radius: 2px; overflow: hidden; }
-.eco-flow {
-  position: absolute; top: 0; left: -30%; width: 30%; height: 100%;
+/* Flowing connector with a directional pulse */
+.flow-link {
+  position: relative; flex: 0 0 clamp(12px, 2.4vw, 40px); align-self: center;
+  height: 2px; background: var(--line-2); overflow: hidden;
+}
+.flow-travel {
+  position: absolute; top: 0; left: -40%; width: 40%; height: 100%;
   background: linear-gradient(90deg, transparent, var(--primary-500), transparent);
   animation: eco-travel 2.2s var(--ease-io) infinite;
 }
@@ -1023,12 +1044,13 @@ button { font-family: inherit; }
   .cap-row { grid-template-columns: 44px 1fr; }
   .cap-row .cap-fact { grid-column: 2; justify-self: start; text-align: left; margin-top: var(--s-2); }
 
-  .eco-diagram { grid-template-columns: 1fr; justify-items: center; gap: var(--s-4); max-width: 460px; }
-  .eco-col { width: 100%; }
-  .eco-out { text-align: left; }
-  .eco-node-out { flex-direction: row; text-align: left; }
-  .eco-link { width: 2px; height: 34px; }
-  .eco-flow { top: -30%; left: 0; width: 100%; height: 30%; background: linear-gradient(180deg, transparent, var(--primary-500), transparent); animation: eco-travel-v 2.2s var(--ease-io) infinite; }
+  .flow { flex-direction: column; align-items: center; max-width: 460px; }
+  .flow-item { flex-direction: column; width: 100%; }
+  .flow-node { width: 100%; flex: none; flex-direction: row; justify-content: flex-start; text-align: left; gap: var(--s-3); padding: var(--s-4); }
+  .flow-node.is-core, .flow-node.is-core:hover { transform: none; }
+  .flow-sub { max-width: none; }
+  .flow-link { flex: 0 0 28px; width: 2px; height: 28px; }
+  .flow-travel { top: -40%; left: 0; width: 100%; height: 40%; background: linear-gradient(180deg, transparent, var(--primary-500), transparent); animation: eco-travel-v 2.2s var(--ease-io) infinite; }
 
   .vs { grid-template-columns: 1fr; }
   .vs-divider { width: auto; height: 1px; }
@@ -1081,8 +1103,8 @@ button { font-family: inherit; }
     transition-duration: 0.2s !important;
   }
   .rise, [data-reveal] { opacity: 1 !important; transform: none !important; }
-  .capture-line, .eco-flow, .nightmap .live-route { display: none; }
-  .cc-row.fresh { animation: none; }
+  .capture-line, .flow-travel, .nightmap .live-route { display: none; }
+  .cc-row.fresh, .ev-box { animation: none; }
   .story-step { opacity: 1; }
   .vs[data-reveal] .vs-them, .vs[data-reveal] .vs-us { transform: none; }
 }

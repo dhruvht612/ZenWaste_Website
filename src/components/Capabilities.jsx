@@ -1,4 +1,5 @@
 import { useReveal } from '../hooks/useReveal.js'
+import EvidenceFrame from './EvidenceFrame.jsx'
 
 /* Product-themed line icons (24×24, inherit color via currentColor). */
 const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', strokeLinejoin: 'round' }
@@ -47,15 +48,15 @@ const ROWS = [
   },
   {
     icon: 'sync',
-    title: 'Customer portal + Soft-Pak sync',
-    body: 'Service history, proof-of-service, and billing in one place. Your CS team answers "was I serviced?" in a single lookup.',
-    fact: { v: '<10 s', k: 'CS lookup time' },
+    title: 'Customer-ready service evidence',
+    body: 'Verified service events, timestamps, and available ZenCam footage help your CS team answer "was I serviced?" with confidence — not guesswork.',
+    fact: { v: 'Footage', k: 'behind every answer' },
   },
   {
     icon: 'camera',
-    title: 'Runs on your existing cameras',
-    body: 'No retrofits, no install trucks, no capex. ZenduWaste layers onto the hardware already mounted on your fleet.',
-    fact: { v: '0', k: 'new devices' },
+    title: 'Powered by ZenCam',
+    body: 'ZenCam captures visual evidence at the curb. ZenduWaste turns that evidence into verified service events, contamination insights, and actionable route exceptions.',
+    fact: { v: '0', k: 'added devices' },
   },
 ]
 
@@ -78,19 +79,15 @@ export default function Capabilities() {
             <h3>AI pickup confirmation</h3>
             <p>
               Every stop becomes a verified service event — timestamped, geotagged, and
-              backed by the frame. Disputes end with a screenshot, not an argument.
+              backed by ZenCam footage. Disputes end with a frame, not an argument.
             </p>
             <div className="cap-lead-facts">
-              <div className="k"><b>98%</b>auto-verified</div>
-              <div className="k"><b>&lt;1 s</b>per stop</div>
+              <div className="k"><b>98%</b>verified in pilot</div>
+              <div className="k"><b>Timestamped</b>every event</div>
             </div>
           </div>
           <div className="cap-demo" aria-hidden="true">
-            <div className="evidence-frame cap-demo-frame">
-              <span className="corner-tr" /><span className="corner-bl" />
-              <span className="capture-line" />
-              <span className="frame-meta"><span className="frame-rec" />ZenCam · Rt 14 · Stop 86</span>
-            </div>
+            <EvidenceFrame scene="detect" analyzing meta="ZenCam · Rt 14 · Stop 86" label="cart · 0.98" className="cap-demo-frame" />
             <div className="cap-demo-row">
               <span className="tag tag-ok">Verified</span>
               <span className="rt">
