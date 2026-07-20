@@ -112,6 +112,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* anchor targets land below the fixed nav */
+  scroll-padding-top: 84px;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -141,6 +143,31 @@ img, svg { display: block; max-width: 100%; }
 button { font-family: inherit; }
 
 ::selection { background: var(--primary-100); color: var(--primary-900); }
+.hero ::selection, .close-band ::selection { background: var(--primary-700); color: #fff; }
+
+/* One focus language everywhere (buttons keep their soft ring) */
+a:focus-visible {
+  outline: 2px solid var(--primary-400);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Keyboard users can jump past the nav */
+.skip-link {
+  position: fixed; top: 10px; left: 10px; z-index: 200;
+  background: var(--primary-600); color: #fff;
+  padding: 10px 16px; border-radius: var(--r-sm);
+  font-weight: 600; font-size: 0.9rem;
+  transform: translateY(-64px);
+  opacity: 0;
+  transition: transform 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+.skip-link:focus-visible {
+  transform: translateY(0);
+  opacity: 1;
+  outline: none;
+  box-shadow: var(--ring-oncanvas);
+}
 
 /* ---------- Layout primitives ---------- */
 
