@@ -224,6 +224,7 @@ button { font-family: inherit; }
 
 .btn-arrow { transition: transform 0.28s var(--ease-quint); }
 .btn:hover .btn-arrow { transform: translateX(3px); }
+.btn:active { transform: translateY(1px); }
 
 .btn:focus-visible {
   outline: none;
@@ -329,10 +330,12 @@ button { font-family: inherit; }
   position: relative;
   border-radius: 10px;
   overflow: hidden;
+  /* reads as an actual ZenCam still — dusky, desaturated camera feed */
   background:
-    radial-gradient(120% 100% at 20% 0%, rgba(19,106,182,0.10), transparent 60%),
-    linear-gradient(135deg, var(--gray-100), var(--gray-200));
-  border: 1px solid var(--line);
+    radial-gradient(120% 100% at 30% 8%, rgba(58,139,204,0.22), transparent 58%),
+    linear-gradient(160deg, #1C2A3A, #0D1622);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.35);
 }
 .evidence-frame::before,
 .evidence-frame::after {
@@ -370,6 +373,26 @@ button { font-family: inherit; }
   width: 7px; height: 7px; border-radius: 50%; background: var(--error-500);
   box-shadow: 0 0 8px var(--error-500);
   animation: ping 2s var(--ease-io) infinite;
+}
+
+/* Curbside detection scene — the signature */
+.ev-scene { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; }
+.ev-ground line { stroke: rgba(255,255,255,0.14); stroke-width: 1; }
+.ev-curb { stroke: rgba(255,255,255,0.45); stroke-width: 1.5; }
+.ev-truck { fill: rgba(255,255,255,0.08); }
+.ev-cart-body { fill: #6E8BA6; stroke: rgba(255,255,255,0.35); stroke-width: 1; }
+.ev-cart-lid { fill: #89A3BB; }
+.ev-wheel { fill: #26333F; }
+.ev-box rect { fill: rgba(18,183,106,0.08); stroke: var(--success-500); stroke-width: 1.5; stroke-dasharray: 5 4; }
+.ev-box path { fill: none; stroke: var(--success-500); stroke-width: 2; }
+.ev-box { animation: ev-lock 3s var(--ease-io) infinite; }
+@keyframes ev-lock { 0%,100% { opacity: 0.85; } 50% { opacity: 1; } }
+.ev-tag {
+  position: absolute; top: 30%; left: 40%; z-index: 3;
+  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600;
+  color: #fff; background: var(--success-600);
+  padding: 2px 6px; border-radius: 4px; white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
 }
 
 /* Route thread — a hairline path with a stop node; a connective signature
@@ -1028,41 +1051,63 @@ button { font-family: inherit; }
 
 /* ---------- Metrics band ---------- */
 
-.metrics { background: var(--gray-50); text-align: center; }
+/* Dark proof band — the results glow against near-black navy */
+.metrics {
+  position: relative; overflow: hidden; text-align: center; color: #fff;
+  background:
+    radial-gradient(120% 90% at 50% -10%, var(--primary-800), transparent 55%),
+    linear-gradient(180deg, var(--gray-950), #060A12);
+  border-top: 1px solid var(--gray-800);
+  border-bottom: 1px solid var(--gray-800);
+}
+.metrics::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(110% 80% at 50% 0%, #000 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(110% 80% at 50% 0%, #000 20%, transparent 70%);
+}
+.metrics .container { position: relative; z-index: 1; }
+.metrics .section-title { color: #fff; }
+.metrics .eyebrow { color: var(--primary-300); }
 .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--s-5); margin-top: var(--s-9); }
 .big-metric {
   position: relative;
   padding: var(--s-7) var(--s-5) var(--s-6);
-  background: #fff; border: 1px solid var(--line); border-radius: var(--r-lg);
-  box-shadow: var(--shadow-xs);
+  background: rgba(255,255,255,0.035);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--r-lg);
   overflow: hidden;
-  transition: transform 0.3s var(--ease-quint), box-shadow 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s var(--ease-quint), background-color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
 }
 .big-metric::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--primary-500), var(--primary-300));
-  opacity: 0; transition: opacity 0.3s var(--ease-out);
+  content: ""; position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-400), transparent);
+  opacity: 0.6; transition: opacity 0.3s var(--ease-out);
 }
-.big-metric:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary-100); }
+.big-metric:hover { transform: translateY(-4px); background: rgba(255,255,255,0.06); border-color: rgba(58,139,204,0.45); }
 .big-metric:hover::before { opacity: 1; }
 .big-metric .bm-num {
-  font-size: clamp(2.8rem, 4.4vw, 4rem); font-weight: 700; color: var(--ink);
+  font-size: clamp(2.8rem, 4.4vw, 4rem); font-weight: 700; color: #fff;
   letter-spacing: -0.04em; font-variant-numeric: tabular-nums; line-height: 1;
 }
-.big-metric .bm-num span { color: var(--primary-600); }
-.big-metric .bm-label { color: var(--muted); margin: var(--s-3) auto 0; font-size: 0.95rem; max-width: 22ch; }
+.big-metric .bm-num span { color: var(--primary-300); text-shadow: 0 0 28px rgba(58,139,204,0.55); }
+.big-metric .bm-label { color: var(--gray-400); margin: var(--s-3) auto 0; font-size: 0.95rem; max-width: 22ch; }
 
 .quote { max-width: 820px; margin: var(--s-10) auto 0; position: relative; }
 .quote::before {
-  content: "“"; display: block; font-size: 4rem; line-height: 0.6; color: var(--primary-200);
+  content: "“"; display: block; font-size: 4rem; line-height: 0.6; color: var(--primary-400);
   font-weight: 700; margin-bottom: var(--s-3);
 }
-.quote blockquote { font-size: 1.65rem; color: var(--ink); line-height: 1.4; letter-spacing: -0.02em; font-weight: 500; max-width: none; margin: 0 auto; }
-.quote cite { display: block; margin-top: var(--s-5); color: var(--muted); font-style: normal; font-size: 0.95rem; }
+.quote blockquote { font-size: 1.65rem; color: #fff; line-height: 1.4; letter-spacing: -0.02em; font-weight: 500; max-width: none; margin: 0 auto; }
+.quote cite { display: block; margin-top: var(--s-5); color: var(--gray-400); font-style: normal; font-size: 0.95rem; }
 
 /* ---------- CTA ---------- */
 
-.cta { position: relative; overflow: hidden; padding: var(--s-11) 0; text-align: center; background: var(--gray-50); }
+.cta { position: relative; overflow: hidden; padding: var(--s-11) 0; text-align: center; background: linear-gradient(180deg, #060A12, var(--gray-950)); }
 .cta-card {
   position: relative; z-index: 2; max-width: 860px; margin: 0 auto;
   padding: var(--s-10) var(--s-7);

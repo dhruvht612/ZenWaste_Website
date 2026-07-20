@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParallax } from '../hooks/useParallax.js'
 import { useSpotlight } from '../hooks/useSpotlight.js'
 import { useInViewTicker } from '../hooks/useInViewTicker.js'
+import EvidenceFrame from './EvidenceFrame.jsx'
 
 /* The pool the live feed draws from. New events arrive at the top on each
  * tick, so the Command Center reads as an operation actually running. */
@@ -62,16 +63,16 @@ export default function Hero() {
         <div className="hero-copy">
           <div className="hero-badge rise rise-1">
             <span className="dot" aria-hidden="true" />
-            Built on ZenduONE + ZenCam · No new hardware
+            Powered by ZenCam · Built on the ZenduONE platform
           </div>
           <h1 className="rise rise-2">
-            The intelligence layer for the{' '}
-            <span className="grad">cameras already on your trucks.</span>
+            The camera sees the stop.{' '}
+            <span className="grad">ZenduWaste understands what happened.</span>
           </h1>
           <p className="hero-sub rise rise-3">
-            ZenduWaste turns your existing fleet cameras into an AI layer that verifies
-            every pickup, catches contamination at the curb, and surfaces missed stops —
-            resolved before the customer ever calls.
+            AI-powered waste fleet intelligence, powered by ZenCam. ZenduWaste pairs
+            ZenCam’s AI camera technology with software built for waste operations — to
+            verify service events, catch contamination, and surface route exceptions.
           </p>
           <div className="hero-actions rise rise-4">
             <a className="btn btn-primary btn-lg" href="#cta">
@@ -144,11 +145,7 @@ export default function Hero() {
                     </span>
                     {r.evidence ? (
                       <span className="cc-evidence" aria-hidden="true">
-                        <span className="evidence-frame">
-                          <span className="corner-tr" /><span className="corner-bl" />
-                          <span className="capture-line" />
-                          <span className="frame-meta"><span className="frame-rec" />ZenCam</span>
-                        </span>
+                        <EvidenceFrame scene="mini" analyzing className="cc-ev" />
                         <span className="btn btn-primary btn-sm cc-act">{r.action} →</span>
                       </span>
                     ) : (

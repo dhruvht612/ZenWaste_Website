@@ -1,5 +1,6 @@
 import { useReveal } from '../hooks/useReveal.js'
 import { useTilt } from '../hooks/useTilt.js'
+import EvidenceFrame from './EvidenceFrame.jsx'
 
 /* Product-themed line icons (24×24, inherit color via currentColor). */
 const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
@@ -99,11 +100,7 @@ function Card({ cap, index }) {
 
       {cap.wide && (
         <div className="cap-demo" aria-hidden="true">
-          <div className="evidence-frame cap-demo-frame">
-            <span className="corner-tr" /><span className="corner-bl" />
-            <span className="capture-line" />
-            <span className="frame-meta"><span className="frame-rec" />ZenCam · Rt 14 · Stop 86</span>
-          </div>
+          <EvidenceFrame scene="detect" analyzing meta="ZenCam · Rt 14 · Stop 86" label="cart · 0.98" className="cap-demo-frame" />
           <div className="cap-demo-row">
             <span className="tag tag-ok">Verified</span>
             <span className="rt">

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useScrollProgress } from '../hooks/useScrollProgress.js'
+import EvidenceFrame from './EvidenceFrame.jsx'
 
 const ROUTE =
   'M 34 66 C 128 18, 168 132, 252 102 C 330 76, 366 150, 300 192 ' +
@@ -117,11 +118,7 @@ export default function StoryShowcase() {
               {/* AI footage analysis */}
               <div className={`stage-overlay ov-scan${stage >= 2 ? ' show' : ''}`}>
                 <div className="ov-head"><span className="badge-dot" style={{ background: '#12B76A' }} />ZenCam · analyzing</div>
-                <div className="evidence-frame ov-scan-frame">
-                  <span className="corner-tr" /><span className="corner-bl" />
-                  <span className="capture-line" />
-                  <span className="frame-meta"><span className="frame-rec" />08:41:52</span>
-                </div>
+                <EvidenceFrame scene="detect" analyzing meta="08:41:52" label="cart · 0.96" className="ov-scan-frame" />
                 <div className="ov-conf">Cart never serviced <span className="conf"><span className="conf-bar"><i style={{ transform: 'scaleX(0.96)' }} /></span><b>96%</b></span></div>
               </div>
 
