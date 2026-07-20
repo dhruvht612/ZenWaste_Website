@@ -45,8 +45,8 @@ const CAPS = [
   {
     icon: 'verify',
     title: 'AI pickup confirmation',
-    body: 'Every stop becomes a verified service event — timestamped, geotagged, and backed by the frame. Disputes end with a screenshot, not an argument.',
-    meta: [{ k: 'Auto-verified', v: '98%' }, { k: 'Per stop', v: '<1s' }],
+    body: 'Every stop becomes a verified service event — timestamped, geotagged, and backed by ZenCam footage. Disputes end with a frame, not an argument.',
+    meta: [{ k: 'Verified in pilot', v: '98%' }, { k: 'Every event', v: 'Timestamped' }],
     wide: true,
   },
   {
@@ -63,15 +63,15 @@ const CAPS = [
   },
   {
     icon: 'sync',
-    title: 'Customer portal + Soft-Pak sync',
-    body: 'Service history, proof-of-service, and billing in one place. Your CS team answers “was I serviced?” in a single lookup.',
-    meta: [{ k: 'Lookup', v: 'Seconds' }],
+    title: 'Customer-ready service evidence',
+    body: 'Verified service events, timestamps, and available ZenCam footage help your CS team answer “was I serviced?” with confidence — not guesswork.',
+    meta: [{ k: 'Backed by', v: 'Footage' }],
   },
   {
     icon: 'camera',
-    title: 'Runs on your existing cameras',
-    body: 'No retrofits, no install trucks, no capex. ZenduWaste layers onto the hardware already mounted on your fleet.',
-    meta: [{ k: 'New devices', v: '0' }],
+    title: 'Powered by ZenCam',
+    body: 'ZenCam captures visual evidence at the curb. ZenduWaste turns that evidence into verified service events, contamination insights, and actionable route exceptions.',
+    meta: [{ k: 'Added devices', v: '0' }],
   },
 ]
 

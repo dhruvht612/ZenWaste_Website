@@ -87,15 +87,15 @@ export default function Hero() {
           <div className="hero-metrics rise rise-5">
             <div className="metric-chip">
               <div className="m-num">98<span>%</span></div>
-              <div className="m-label">pickups auto-verified</div>
+              <div className="m-label">pickup verification in pilot</div>
             </div>
             <div className="metric-chip">
               <div className="m-num">&lt;3<span>min</span></div>
-              <div className="m-label">to surface an exception</div>
+              <div className="m-label">exception → dispatcher alert</div>
             </div>
             <div className="metric-chip">
               <div className="m-num">0<span></span></div>
-              <div className="m-label">new devices installed</div>
+              <div className="m-label">added devices required</div>
             </div>
           </div>
         </div>

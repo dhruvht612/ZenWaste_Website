@@ -5,7 +5,7 @@ const COLS = [
       ['Pickup confirmation', '#capabilities'],
       ['Contamination detection', '#capabilities'],
       ['Exception alerts', '#capabilities'],
-      ['Customer portal', '#capabilities'],
+      ['Service evidence', '#capabilities'],
     ],
   },
   {
@@ -20,10 +20,10 @@ const COLS = [
   {
     h: 'Ecosystem',
     links: [
-      ['ZenduONE', '#top'],
       ['ZenCam', '#top'],
+      ['ZenduONE platform', '#top'],
       ['GoFleet', '#top'],
-      ['Soft-Pak sync', '#top'],
+      ['Command Center', '#how'],
     ],
   },
 ]

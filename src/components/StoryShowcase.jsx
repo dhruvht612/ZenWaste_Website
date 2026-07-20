@@ -7,11 +7,11 @@ const ROUTE =
   'C 250 224, 156 188, 116 228 C 82 262, 46 246, 30 206'
 
 const STEPS = [
-  { t: 'Route runs', d: 'Trucks run their normal routes. ZenCam watches every stop through the cameras already on the vehicle.' },
-  { t: 'Missed stop detected', d: 'No service event lands inside the pickup window for Stop 87 — the system flags it in real time.' },
-  { t: 'AI analyzes the footage', d: 'ZenCam reviews the curbside frames, confirms the cart was never serviced, and scores its confidence.' },
+  { t: 'Route runs', d: 'Trucks run their normal routes. ZenCam captures every stop through the AI cameras on the truck.' },
+  { t: 'Missed stop detected', d: 'No service event lands inside the pickup window for Stop 87 — ZenduWaste flags it in real time.' },
+  { t: 'AI reads the evidence', d: 'ZenCam captures the curbside frames; ZenduWaste’s AI confirms the cart was never serviced and scores its confidence.' },
   { t: 'Dispatcher alerted', d: 'The exception surfaces in the Command Center with the evidence attached — while the truck is still nearby.' },
-  { t: 'Customer notified', d: 'An automatic update goes out before the resident ever picks up the phone to complain.' },
+  { t: 'Customer updated', d: 'The customer can be updated with proof of the outcome — before the resident ever picks up the phone.' },
   { t: 'Resolved — same shift', d: 'The truck is rerouted back, the stop is verified, and the record closes. No callback, no dispute.' },
 ]
 
@@ -135,7 +135,7 @@ export default function StoryShowcase() {
               <div className={`stage-overlay ov-notify${stage >= 4 ? ' show' : ''}`}>
                 <div className="toast">
                   <span className="ic">✉</span>
-                  <span className="tt"><strong>Customer notified</strong><span>“We’ll return today”</span></span>
+                  <span className="tt"><strong>Customer updated</strong><span>“We’ll return today”</span></span>
                 </div>
               </div>
 
